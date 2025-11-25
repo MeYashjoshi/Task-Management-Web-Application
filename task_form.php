@@ -10,26 +10,25 @@
 </head>
 
 <body>
-
-
     <main class="container mt-5">
-
         <div class="row justify-content-center mt-4">
             <div class="col-md-6">
                 <div class="card p-4">
                     <h3>Add / Edit Task</h3>
+                    <div id="msg"></div>
 
-                    <form method="post" action="#" class="row g-3">
-                        <input type="hidden" name="id" value="">
+                    <form id="taskForm" class="row g-3">
+                        <input type="hidden" name="id" id="task_id" value="">
 
                         <div class="col-md-6">
                             <label class="form-label">Title</label>
-                            <input name="title" type="text" class="form-control" required placeholder="Task title">
+                            <input name="title" id="title" type="text" class="form-control" required maxlength="255"
+                                placeholder="Task title">
                         </div>
 
                         <div class="col-md-6">
                             <label class="form-label">Category</label>
-                            <select name="category" class="form-select">
+                            <select name="category" id="category" class="form-select">
                                 <option>Work</option>
                                 <option>Personal</option>
                             </select>
@@ -37,12 +36,12 @@
 
                         <div class="col-12">
                             <label class="form-label">Description</label>
-                            <textarea name="description" class="form-control" rows="4"></textarea>
+                            <textarea name="description" id="description" class="form-control" rows="4"></textarea>
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label">Status</label>
-                            <select name="status" class="form-select">
+                            <select name="status" id="status" class="form-select">
                                 <option>To Do</option>
                                 <option>In Progress</option>
                                 <option>Completed</option>
@@ -56,14 +55,14 @@
                         </div>
 
                         <div class="col-12">
-                            <button class="btn btn-primary">Save</button>
-                            <a class="btn btn-secondary" href="tasks.html">Cancel</a>
+                            <button id="saveBtn" type="submit" class="btn btn-primary">Save</button>
+                            <a class="btn btn-secondary" href="tasks.php">Cancel</a>
                         </div>
-                        
-                    </form>
 
+                    </form>
                 </div>
             </div>
+        </div>
     </main>
 
 
@@ -74,7 +73,38 @@
         $(function () {
             $("#due_date").datepicker({ dateFormat: "yy-mm-dd" });
         });
+
+        $("#taskForm").on("submit", function (e) {
+            e.preventDefault();
+            $("#msg").html('');
+            var $btn = $("#saveBtn");
+            $btn.prop('disabled', true).text('Saving...');
+
+            $.ajax({
+                url: "save_task.php",
+                type: "POST",
+                data: $(this).serialize(),
+                dataType: "json",
+                success: function (res) {
+                    if (res.status === "success") {
+                        $("#msg").html('<div class="alert alert-success">' + res.message + '</div>');
+                        setTimeout(function () {
+                            window.location.href = "tasks.php";
+                        }, 800);
+                    } else {
+                        $("#msg").html('<div class="alert alert-danger">' + res.message + '</div>');
+                        $btn.prop('disabled', false).text('Save');
+                    }
+                },
+                error: function () {
+                    $("#msg").html('<div class="alert alert-danger">Something went wrong. Try again.</div>');
+                    $btn.prop('disabled', false).text('Save');
+                }
+            });
+        });
     </script>
+
+    <script src="assets/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
