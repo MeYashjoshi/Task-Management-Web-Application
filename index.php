@@ -18,6 +18,8 @@
          <h1>Welcome</h1>
          <p class="lead">PHP CRUD with Authentication and Task Management</p>
           <a class="btn btn-primary w-100" href="register.php">Get started</a>
+          <br>
+          <a class="btn btn-primary w-100" href="admin_upload.php">Admin Upload</a>
         </div>
       </div>
     </div>
