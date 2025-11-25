@@ -5,6 +5,7 @@
   <title>Task App</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link href="assets/bootstrap.min.css" rel="stylesheet">
+     <link rel="icon" href="uploads/<?php echo $favicon ? $favicon : 'default_favicon.ico'; ?>">
 </head>
 <body>
 
