@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My Tasks - TaskApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="assets/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/jquery.dataTables.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3>My Tasks</h3>
+            <div>
+                <a class="btn btn-primary" href="task_form.html">Add Task</a>
+                <a class="btn btn-outline-secondary" href="index.html">Logout</a>
+            </div>
+        </div>
+
+        <form class="row g-2 my-3 justify-content-center" method="get" action="#">
+            <div class="col-md-3">
+                <select name="status" class="form-select">
+                    <option value="">All Status</option>
+                    <option>To Do</option>
+                    <option>In Progress</option>
+                    <option>Completed</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select name="category" class="form-select">
+                    <option value="">All Category</option>
+                    <option>Work</option>
+                    <option>Personal</option>
+                </select>
+            </div>
+       
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100">Filter</button>
+            </div>
+        </form>
+
+        <table id="tasksTable" class="display table table-bordered">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Prepare report</td>
+                    <td>Work</td>
+                    <td><span class="badge bg-warning">To Do</span></td>
+                    <td>2025-12-01</td>
+                    <td>
+                        <a class="btn btn-sm btn-info" href="task_form.html">Edit</a>
+                        <a class="btn btn-sm btn-danger" href="#">Delete</a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Hello report</td>
+                    <td>Work</td>
+                    <td><span class="badge bg-warning">To Do</span></td>
+                    <td>2025-12-01</td>
+                    <td>
+                        <a class="btn btn-sm btn-info" href="task_form.html">Edit</a>
+                        <a class="btn btn-sm btn-danger" href="#">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="assets/jquery-3.7.1.min.js"></script>
+    <script src="assets/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tasksTable').DataTable();
+        });
+    </script>
+</body>
+
+</html>
