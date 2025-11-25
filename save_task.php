@@ -52,17 +52,39 @@ if ($id > 0) {
     }
 
     // Update Task
-    $upd = $mysqli->prepare("UPDATE tasks SET title = ?, description = ?, category = ?, status = ?, due_date = ? WHERE id = ? AND user_id = ?");
-    $upd->bind_param("ssssiii", $title, $description, $category, $status, $due_date, $id, $userId);
-  
-    $ok = $upd->execute();
-    if ($ok) {
-        echo json_encode(["status"=>"success","message"=>"Task updated"]);
+
+    if ($due_date === "" || $due_date === null) {
+        $due_date_sql = null;
+    } else {
+        $due_date_sql = $due_date;
+    }
+
+    $upd = $mysqli->prepare("
+    UPDATE tasks 
+    SET title = ?, description = ?, category = ?, status = ?, due_date = ?
+    WHERE id = ? AND user_id = ?
+");
+
+    $upd->bind_param(
+        "sssssii",
+        $title,
+        $description,
+        $category,
+        $status,
+        $due_date_sql,
+        $id,
+        $userId
+    );
+
+    if ($upd->execute()) {
+        echo json_encode(["status" => "success", "message" => "Task updated"]);
         exit;
     } else {
-        echo json_encode(["status"=>"error","message"=>"Could not update task"]);
+        echo json_encode(["status" => "error", "message" => "Error updating task"]);
         exit;
     }
+
+
 } 
 
 
