@@ -16,7 +16,7 @@
         <div class="card p-4">
          <h1>Welcome</h1>
          <p class="lead">PHP CRUD with Authentication and Task Management</p>
-          <a class="btn btn-primary w-100" href="register.html">Get started</a>
+          <a class="btn btn-primary w-100" href="register.php">Get started</a>
         </div>
       </div>
     </div>
